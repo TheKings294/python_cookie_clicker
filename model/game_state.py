@@ -36,22 +36,17 @@ class GameState:
     def add_total_money_stat(self, money):
         self._total_money_stat += money
 
+    def set_total_money_stat(self, money):
+        self._total_money_stat = money
+
     def get_achievements_list(self):
         return self._achievements_list
 
     def add_to_achievements_list(self, achievements):
-        self._achievements_list.append()
+        self._achievements_list.append(achievements)
 
     def get_upgrades_list(self):
         return self._upgrades_list
 
     def add_to_upgrades_list(self, upgrade):
         self._upgrades_list.append(upgrade)
-
-    def to_dict(self):
-        return False
-        # Save data
-
-    def from_dict(self):
-        return False
-        # Load data

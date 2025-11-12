@@ -2,7 +2,10 @@ import sys
 
 import pygame
 
+from controller.event_handler import EventHandler
+from controller.input_manager import InputManager
 from core.constant import Constant
+from core.event_manager import EventManager
 from core.save_manager import SaveManager
 from model.game_state import GameState
 
@@ -10,8 +13,8 @@ from model.game_state import GameState
 class GameManager:
     _instance = {}
     running: bool = False
-    game_state = {}
-    event_manager = {}
+    game_state = GameState()
+    event_manager = EventManager()
     ui_manager = {}
     input_manager = {}
     save_manager = SaveManager("./data")
@@ -19,6 +22,8 @@ class GameManager:
     screen = {}
 
     def __init__(self):
+        self._instance = self
+        self.input_manager = InputManager(EventHandler(self._instance))
         pass
 
     def start(self):
@@ -39,6 +44,8 @@ class GameManager:
                     self.save_manager.save(self.game_state)
                     self.running = False
                     sys.exit()
+                else:
+                    self.input_manager.handle_event(event)
 
             self.screen.fill((0, 0, 0))
             pygame.display.flip()
@@ -54,3 +61,6 @@ class GameManager:
 
     def get_instance(self):
         return self
+
+    def handle_click(self, x, y):
+        pass

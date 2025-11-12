@@ -10,7 +10,7 @@ class EventManager(Observable):
     def subscribe(self, event_type, listener):
         if event_type not in self.listener_list:
             self.listener_list[event_type] = []
-        if listener in self.listener_list[event_type]:
+        if listener not in self.listener_list[event_type]:
             self.listener_list[event_type].append(listener)
 
     def unsubscribe(self, event_type, listener):

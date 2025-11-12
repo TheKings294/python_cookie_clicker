@@ -33,6 +33,9 @@ class GameManager:
         pygame.display.set_caption("Click'n'Gun")
         self.game_state = self.save_manager.load()
         print(self.game_state.get_total_money_stat())
+        self.event_manager.subscribe("score_update", self.on_score_update)
+        self.event_manager.subscribe("player_death", self.on_player_death)
+        print(self.event_manager.listener_list)
         self.running = True
         self.game_loop()
 
@@ -64,3 +67,9 @@ class GameManager:
 
     def handle_click(self, x, y):
         pass
+
+    def on_score_update(self, data):
+        print(f"🎯 Score updated: {data['score']}")
+
+    def on_player_death(self, data):
+        print(f"💀 Player {data['player_name']} has died.")

@@ -5,6 +5,7 @@ def upgrades_json_to_list(data) -> list:
 
     return upgrade_list
 
+
 def achievements_json_to_list(data) -> list:
     achievement_list = []
     for a in data:

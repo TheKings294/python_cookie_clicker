@@ -9,7 +9,7 @@ from model.game_state import GameState
 
 class GameManager:
     _instance = {}
-    running : bool = False
+    running: bool = False
     game_state = {}
     event_manager = {}
     ui_manager = {}
@@ -43,7 +43,7 @@ class GameManager:
             self.screen.fill((0, 0, 0))
             pygame.display.flip()
 
-    def update (self):
+    def update(self):
         pass
 
     def save_game(self):

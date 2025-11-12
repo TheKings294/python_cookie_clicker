@@ -1,5 +1,5 @@
 ## Money = arme
-    ## Money par seconde
+## Money par seconde
 ## Click = combien de money par click
 ## Upgrades list
 ## Achievement list

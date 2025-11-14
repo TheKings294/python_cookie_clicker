@@ -10,23 +10,14 @@ class UIManager:
     def __init__(self, event_manager, game_state: GameState):
         self.event_manager : EventManager = event_manager
         self.ui: list[UiComponents] = []
+        self.game_state = game_state
 
         # Font
-        #self.font = pygame.font.Font(None, 30)
+        self.font = pygame.font.Font("./assets/arial.ttf", 25)
 
-        self.cookie_label = CookieComponent(10, 10, 50, 50, self.on_click_cookie, game_state.get_money())
-
-        # Register components
-        self.ui.extend([
-            self.cookie_label,
-            #self.cookie_button,
-            #self.upgrade_bar,
-        ])
-
-    def update_cookie_label(self, amount):
-        self.cookie_label.cookies = amount
 
     def draw(self, screen):
+        print("Hi")
         for element in self.ui:
             element.draw(screen)
 

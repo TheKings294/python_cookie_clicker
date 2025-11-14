@@ -9,6 +9,7 @@ from core.event_manager import EventManager
 from core.save_manager import SaveManager
 from core.screen_manager import ScreenManager
 from model.game_state import GameState
+from screens.credit_screen import CreditScreen
 from view.render import Renderer
 from view.ui_manager import UIManager
 from screens.menu_screen import MenuScreen
@@ -41,7 +42,7 @@ class GameManager:
         self.screen_manager.screens = {
             "menu": MenuScreen(self, self.event_manager, self.screen_manager, self.game_state),
             "game": GameScreen(self, self.event_manager, self.screen_manager, self.game_state),
-            #"credits": CreditsScreen(self.screen_manager)
+            "credits": CreditScreen(self, self.screen_manager, self.screen_manager, self.game_state)
         }
 
         self.screen_manager.set_screen("menu")

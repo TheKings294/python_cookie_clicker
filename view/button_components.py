@@ -6,7 +6,7 @@ class Button(UiComponents):
                  bg_color=(70, 130, 180), hover_color=(100, 160, 210), text_color=(255,255,255)):
         super().__init__(x, y, h, w, call_back)
         self.text = text
-        self.font = font
+        self.font = font or pygame.font.Font('assets/arial.ttf', 15)
         self.bg_color = bg_color
         self.hover_color = hover_color
         self.text_color = text_color
@@ -29,6 +29,6 @@ class Button(UiComponents):
         screen.blit(text_surf, self.rect)
 
     def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left click
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self.is_hovered(event.pos):
                 self.click()

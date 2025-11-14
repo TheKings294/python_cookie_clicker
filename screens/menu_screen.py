@@ -1,3 +1,4 @@
+from core.event_manager import EventManager
 from screens.base_screen import BaseScreen
 import pygame
 from view.button_components import Button
@@ -6,14 +7,15 @@ from view.button_components import Button
 class MenuScreen(BaseScreen):
     def __init__(self, game_manager, event_manager, screen_manager, game_state):
         super().__init__(game_manager, event_manager, screen_manager, game_state)
-        self.event_manager = event_manager
+        self.event_manager : EventManager = event_manager
         self.screen_manager = screen_manager
         self.game_state = game_state
 
-        self.play_button = Button(300, 200, 200, 60, "Play", self.ui_manager.font, self.play)
+        self.play_button = Button(300, 200, 200, 60, "Reload game", self.ui_manager.font, self.play)
+        self.new_play_button = Button(300, 300, 200, 60, "New game", self.ui_manager.font, self.play)
         #self.credits_button = Button(300, 300, 200, 60, "Credits", self.ui_manager.font, self.credits)
         self.quit_button = Button(300, 400, 200, 60, "Quit", self.ui_manager.font, self.quit_game)
-        self.ui_manager.ui.extend([self.play_button, self.quit_button])
+        self.ui_manager.ui.extend([self.play_button, self.new_play_button, self.quit_button])
 
     def enter(self):
         pass
@@ -31,7 +33,10 @@ class MenuScreen(BaseScreen):
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.ui_manager.handle_click(*event.pos)
 
-    def play(self): self.screen_manager.set_screen("game")
+    def play(self):
+        self.game_manager.load_game()
+        self.screen_manager.set_screen("game")
+    def new_game(self): self.event_manager.notify('new_game', None)
 
     #def credits(self): self.screen_manager.set_screen("credits")
 

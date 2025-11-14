@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
-
 from view.ui_manager import UIManager
 
 
 class BaseScreen(ABC):
     def __init__(self, game_manager, event_manager, screen_manager, game_state):
+        self.game_manager = game_manager
         self.ui_manager = UIManager(event_manager, game_state)
         pass
 

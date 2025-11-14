@@ -9,6 +9,8 @@ from core.event_manager import EventManager
 from core.save_manager import SaveManager
 from core.screen_manager import ScreenManager
 from model.game_state import GameState
+from model.upgrade import Upgrade
+from model.upgrade_strategy import MultiplierStrategy, AutoClickStrategy
 from view.render import Renderer
 from view.ui_manager import UIManager
 from screens.menu_screen import MenuScreen
@@ -25,6 +27,18 @@ class GameManager:
     save_manager = SaveManager("./data")
     screen_manager = ScreenManager()
     clock = pygame.time.Clock()
+    upgrades_available = [
+        Upgrade("Lubrifiant patriotique", 0, MultiplierStrategy(1.05)),
+        Upgrade("Chargeur XXL", 1, MultiplierStrategy(1.5)),
+        Upgrade("Propagande TV", 2, MultiplierStrategy(2)),
+        Upgrade("Soutien du congrès", 3, MultiplierStrategy(2.5)),
+        Upgrade("Black Friday Sales", 0, MultiplierStrategy(3)),
+        Upgrade("Atelier garage", 0, AutoClickStrategy(0.3)),
+        Upgrade("Armurerie local", 1, AutoClickStrategy(0.6)),
+        Upgrade("Usine d'armes", 2, AutoClickStrategy(1)),
+        Upgrade("Lobby politique ", 3, AutoClickStrategy(1.7)),
+        Upgrade("Milices locales", 0, AutoClickStrategy(2)),
+    ]
 
     screen = {}
 
@@ -45,7 +59,6 @@ class GameManager:
         }
 
         self.screen_manager.set_screen("menu")
-        self.load_game()
         self.running = True
         self.game_loop()
 
@@ -91,7 +104,6 @@ class GameManager:
         self.screen_manager.handle_click(x, y)
         pass
 
-    def on_cookie_clicked(self):
+    def on_cookie_clicked(self, data):
         self.game_state.add_money(self.game_state.get_money_per_click())
-        self.event_manager.notify("cookies_updated", self.game_state.get_money())
-        print(self.game_state.get_money())
+        self.event_manager.notify("cookie_updated", "Cookie :" + str(self.game_state.get_money()))

@@ -32,6 +32,7 @@ class GameManager:
         self._instance = self
         self.input_manager = InputManager(EventHandler(self._instance))
         self.event_manager.subscribe("click_cookie", self.on_cookie_clicked)
+        self.event_manager.subscribe("new_game", self.new_game)
 
     def start(self):
         print("Starting game...")
@@ -54,7 +55,7 @@ class GameManager:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    self.save_manager.save(self.game_state)
+                    self.save_game()
                     self.running = False
                     sys.exit()
                 else:
@@ -71,12 +72,17 @@ class GameManager:
         pass
 
     def save_game(self):
-        pass
+        self.save_manager.save(self.game_state)
 
     def load_game(self):
         self.game_state = self.save_manager.load()
         if not self.game_state.is_good_healthy():
             raise Exception("Error during loading save")
+
+    def new_game(self, data):
+        self.save_manager.create_file_and_dir()
+        self.game_state = GameState()
+        self.save_game()
 
     def get_instance(self):
         return self

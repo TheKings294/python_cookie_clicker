@@ -47,7 +47,7 @@ class SaveManager():
 
         game_state.add_money(data_s["money"])
         game_state.set_total_money_stat(data_s["total_money"])
-        game_state.set_money_per_click(data_s["money_per_click"])
+        game_state.add_money_per_click(data_s["money_per_click"])
         ##game_state.add_to_upgrades_list(upgrades_json_to_list(data_u))
         ##game_state.add_to_achievements_list(achievements_json_to_list(data_a))
 

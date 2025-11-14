@@ -3,7 +3,6 @@ class GameState:
     _money_per_click: int = 1
     _total_money_stat: int = 0
     _upgrades_list: list = []
-    _achievements_list: list = []
 
     def get_money(self):
         return self._money
@@ -36,11 +35,6 @@ class GameState:
     def set_total_money_stat(self, money):
         self._total_money_stat = money
 
-    def get_achievements_list(self):
-        return self._achievements_list
-
-    def add_to_achievements_list(self, achievements):
-        self._achievements_list.append(achievements)
 
     def get_upgrades_list(self):
         return self._upgrades_list

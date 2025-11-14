@@ -19,13 +19,15 @@ class SaveManager():
             "money_per_click": save.get_money_per_click()
         }
 
-        upgrade_data = upgrades_list_to_json(save.get_upgrades_list())
+        if len(save.get_upgrades_list()) > 0:
+            print(save.get_upgrades_list())
+            upgrade_data = upgrades_list_to_json(save.get_upgrades_list())
+            with open(self._save_path + "/upgrades.json", "w") as file:
+                json.dump(upgrade_data, file)
 
         with open(self._save_path + "/savegame.json", "w") as file:
             json.dump(save_game_data, file)
 
-        with open(self._save_path + "/upgrades.json", "w") as file:
-            json.dump(upgrade_data, file)
 
     def load(self) -> GameState:
         game_state = GameState()
@@ -43,7 +45,8 @@ class SaveManager():
         game_state.add_money(data_s["money"])
         game_state.set_total_money_stat(data_s["total_money"])
         game_state.set_money_per_click(data_s["money_per_click"])
-        game_state.add_to_upgrades_list(upgrades_json_to_list(data_u))
+        for u in upgrades_json_to_list(data_u):
+            game_state.add_to_upgrades_list(u)
 
         return game_state
 

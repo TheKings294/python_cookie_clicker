@@ -13,9 +13,10 @@ class MenuScreen(BaseScreen):
 
         self.play_button = Button(300, 200, 200, 60, "Reload game", self.ui_manager.font, self.play)
         self.new_play_button = Button(300, 300, 200, 60, "New game", self.ui_manager.font, self.play)
-        #self.credits_button = Button(300, 300, 200, 60, "Credits", self.ui_manager.font, self.credits)
+        self.play_button = Button(300, 200, 200, 60, "Play", self.ui_manager.font, self.play)
+        self.credits_button = Button(300, 300, 200, 60, "Credits", self.ui_manager.font, self.credits)
         self.quit_button = Button(300, 400, 200, 60, "Quit", self.ui_manager.font, self.quit_game)
-        self.ui_manager.ui.extend([self.play_button, self.new_play_button, self.quit_button])
+        self.ui_manager.ui.extend([self.play_button, self.new_play_button, self.quit_button, self.credits_button])
 
     def enter(self):
         pass
@@ -38,6 +39,6 @@ class MenuScreen(BaseScreen):
         self.screen_manager.set_screen("game")
     def new_game(self): self.event_manager.notify('new_game', None)
 
-    #def credits(self): self.screen_manager.set_screen("credits")
+    def credits(self): self.screen_manager.set_screen("credits")
 
     def quit_game(self): import sys; sys.exit()

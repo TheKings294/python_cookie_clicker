@@ -17,7 +17,6 @@ class Button(UiComponents):
         if not self.visible:
             return
 
-        print("button draw")
         mouse_pos = pygame.mouse.get_pos()
         color = self.hover_color if self.is_hovered(mouse_pos) else self.bg_color
 

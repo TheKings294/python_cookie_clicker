@@ -17,7 +17,6 @@ class UIManager:
 
 
     def draw(self, screen):
-        print("Hi")
         for element in self.ui:
             element.draw(screen)
 

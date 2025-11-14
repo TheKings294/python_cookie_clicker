@@ -25,7 +25,6 @@ class MenuScreen(BaseScreen):
         pass
 
     def draw(self, surface):
-        print("Hello")
         self.ui_manager.draw(surface)
 
     def handle_event(self, event):

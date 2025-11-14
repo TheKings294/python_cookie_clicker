@@ -27,6 +27,9 @@ class GameState:
     def add_money_per_click(self, money_per_click):
         self._money_per_click += money_per_click
 
+    def set_money_per_click(self, money_per_click):
+        self._money_per_click = money_per_click
+
     def subtract_money_per_click(self, money_per_click):
         self._money_per_click -= money_per_click
 

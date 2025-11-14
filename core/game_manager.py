@@ -85,6 +85,7 @@ class GameManager:
         self.screen_manager.handle_click(x, y)
         pass
 
-    def on_cookie_clicked(self, data):
+    def on_cookie_clicked(self):
         self.game_state.add_money(self.game_state.get_money_per_click())
         self.event_manager.notify("cookies_updated", self.game_state.get_money())
+        print(self.game_state.get_money())

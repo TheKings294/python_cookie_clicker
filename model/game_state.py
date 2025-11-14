@@ -6,7 +6,7 @@
 
 class GameState:
     _money: int = 0
-    _money_per_click: int = 0
+    _money_per_click: int = 1
     _total_money_stat: int = 0
     _upgrades_list: list = []
     _achievements_list: list = []
@@ -50,3 +50,8 @@ class GameState:
 
     def add_to_upgrades_list(self, upgrade):
         self._upgrades_list.append(upgrade)
+
+    def is_good_healthy(self):
+        if not self._total_money_stat == 0 or not self._money == 0 and self._money_per_click == 1:
+            return True
+        return False

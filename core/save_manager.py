@@ -1,3 +1,5 @@
+import os.path
+
 from model.game_state import GameState
 import json
 from utils.list_to_json import upgrades_list_to_json, achievements_list_to_json
@@ -24,22 +26,25 @@ class SaveManager():
             json.dump(save_game_data, file)
 
         ##with open(self._save_path + "/achievements.json", "w") as file:
-            ##json.dump(achievements_data, file)
+        ##json.dump(achievements_data, file)
 
         ##with open(self._save_path + "/upgrades.json", "w") as file:
-            ##json.dump(upgrade_data, file)
+        ##json.dump(upgrade_data, file)
 
     def load(self) -> GameState:
+        game_state = GameState()
+        if not os.path.isdir(self._save_path):
+            return game_state
+
         with open(self._save_path + "/savegame.json", "r") as file:
             data_s = json.load(file)
 
         ##with open(self._save_path + "/achievements.json", "r") as file:
-            ##data_a = json.load(file)
+        ##data_a = json.load(file)
 
         ##with open(self._save_path + "/upgrades.json", "r") as file:
-            ##data_u = json.load(file)
+        ##data_u = json.load(file)
 
-        game_state = GameState()
         game_state.add_money(data_s["money"])
         game_state.set_total_money_stat(data_s["total_money"])
         game_state.add_money_per_click(data_s["money_per_click"])

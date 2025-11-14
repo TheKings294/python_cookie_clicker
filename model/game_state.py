@@ -1,9 +1,3 @@
-## Money = arme
-## Money par seconde
-## Click = combien de money par click
-## Upgrades list
-## Achievement list
-
 class GameState:
     _money: int = 0
     _money_per_click: int = 1

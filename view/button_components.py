@@ -24,7 +24,7 @@ class Button(UiComponents):
 
         text_surf = self.font.render(self.text, True, self.text_color)
         text_rect = text_surf.get_rect(center=self.rect.center)
-        screen.blit(text_surf, self.rect)
+        screen.blit(text_surf, text_rect)
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:

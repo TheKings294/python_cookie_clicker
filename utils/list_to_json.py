@@ -1,14 +1,17 @@
-def upgrades_list_to_json(upgrades: list):
-    upgrade_data = {}
+from model.upgrade import Upgrade
+from model.upgrade_strategy import AutoClickStrategy
+
+
+def upgrades_list_to_json(upgrades: list[Upgrade]):
+    upgrades_data = []
     for upgrade in upgrades:
-        pass
+        upgrades_data.append({
+            "name": upgrade.name,
+            "cost": upgrade.cost,
+            "strategy" : upgrade.strategy.name,
+            "value" : upgrade.strategy.cps
+                        if isinstance(upgrade.strategy, AutoClickStrategy)
+                        else upgrade.strategy.multiplier
+        })
 
-    return upgrade_data
-
-
-def achievements_list_to_json(achievements: list):
-    achievement_data = {}
-    for achievement in achievements:
-        pass
-
-    return achievement_data
+    return upgrades_data

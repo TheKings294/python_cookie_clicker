@@ -1,58 +1,32 @@
-from abc import ABC, abstractmethod
+from core.event_manager import EventManager
+from model.game_state import GameState
 
 
-class Upgrade(ABC):
-    def __init__(self, name, cost, player):
+class Upgrade:
+    def __init__(self, name, cost, strategy):
         self.name = name
         self.cost = cost
-        self.player = player
+        self.strategy = strategy
+        self.level = 1
 
-    @abstractmethod
-    def apply(self):
-        pass
+    def can_buy(self, game_state: GameState):
+        return game_state.get_money() >= self.cost
 
-    @abstractmethod
-    def can_buy(self):
-        pass
+    def buy(self, game_state: GameState):
+        if not self.can_buy(game_state):
+            return False
 
-    @abstractmethod
-    def get_price(self):
-        pass
+        game_state.subtract_money(self.cost)
+        self.level += 1
+        self.cost = self.cost * 1.20
 
+        self.strategy.apply(game_state, self.level)
+        return True
 
-class UniqueUpgrade(Upgrade):
-    def __init__(self, name, player, cost, effect):
-        super().__init__(name, cost, player)
-        self.purchased = False
-        self.effect = effect
+    def update(self, game_state, dt, event_manager : EventManager):
+        self.strategy.update(game_state, dt, self.level)
+        event_manager.notify("cookie_updated", "Armes :" + str(round(game_state.get_money())))
+        return True
 
-    def get_price(self):
-        return self.cost
-
-    def can_buy(self):
-        return not self.purchased and self.player.getmoney() >= self.cost
-
-    def apply(self):
-        if self.can_buy():
-            self.player.subtract_money(self.cost)
-            self.purchased = True
-
-
-class LevelUpgrade(Upgrade):
-    def __init__(self, name, base_cost, player, cost_multiplier, effect):
-        super().__init__(name, base_cost, player)
-        self.level = 0
-        self.cost_multiplier = cost_multiplier
-        self.effect = effect
-
-    def get_price(self):
-        return self.cost
-
-    def can_buy(self):
-        return self.player.getmoney() >= self.cost
-
-    def apply(self):
-        if self.can_buy():
-            self.player.subtract_money(self.cost)
-            self.cost *= self.cost_multiplier
-            self.level += 1
+    def set_level(self, level):
+        self.level = level

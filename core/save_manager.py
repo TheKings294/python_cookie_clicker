@@ -23,6 +23,9 @@ class SaveManager():
             upgrade_data = upgrades_list_to_json(save.get_upgrades_list())
             with open(self._save_path + "/upgrades.json", "w") as file:
                 json.dump(upgrade_data, file)
+        else:
+            with open(self._save_path + "/upgrades.json", "w") as file:
+                json.dump([], file)
 
         with open(self._save_path + "/savegame.json", "w") as file:
             json.dump(save_game_data, file)
@@ -53,4 +56,4 @@ class SaveManager():
         if not os.path.isdir(self._save_path):
             os.mkdir(self._save_path)
             open(self._save_path + "/savegame.json", "x").close()
-            open(self._save_path + "/upgrade.json", "x").close()
+            open(self._save_path + "/upgrades.json", "x").close()

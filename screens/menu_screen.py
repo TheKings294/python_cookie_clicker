@@ -11,11 +11,11 @@ class MenuScreen(BaseScreen):
         self.screen_manager = screen_manager
         self.game_state = game_state
 
-        self.play_button = Button(300, 200, 200, 60, "Reload game", self.ui_manager.font, self.play)
-        self.new_play_button = Button(300, 300, 200, 60, "New game", self.ui_manager.font, self.play)
-        self.play_button = Button(300, 200, 200, 60, "Play", self.ui_manager.font, self.play)
-        self.credits_button = Button(300, 300, 200, 60, "Credits", self.ui_manager.font, self.credits)
-        self.quit_button = Button(300, 400, 200, 60, "Quit", self.ui_manager.font, self.quit_game)
+        self.play_button = Button(300, 200, 200, 60, "Reload game", self.ui_manager.font, self.play, None)
+        self.new_play_button = Button(300, 300, 200, 60, "New game", self.ui_manager.font, self.play, None)
+        self.play_button = Button(300, 200, 200, 60, "Play", self.ui_manager.font, self.play, None)
+        self.credits_button = Button(300, 300, 200, 60, "Credits", self.ui_manager.font, self.credits, None)
+        self.quit_button = Button(300, 400, 200, 60, "Quit", self.ui_manager.font, self.quit_game, None)
         self.ui_manager.ui.extend([self.play_button, self.new_play_button, self.quit_button, self.credits_button])
 
     def enter(self):

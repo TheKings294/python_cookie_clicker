@@ -3,7 +3,7 @@ from .ui_components import UiComponents   # adjust import to your project struct
 
 class TextComponent(UiComponents):
     def __init__(self, x, y, w, h, text, font_size=24, color=(255, 255, 255), call_back=None):
-        super().__init__(x, y, w, h, call_back)
+        super().__init__(x, y, w, h, call_back, None)
 
         self.text = text
         self.color = color

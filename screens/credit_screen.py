@@ -22,7 +22,8 @@ class CreditScreen(BaseScreen):
             50, 50, 150, 50,
             "Retour",
             self.font_text,
-            lambda: self.screen_manager.set_screen("menu")
+            lambda: self.screen_manager.set_screen("menu"),
+            None
         )
         self.ui_manager.ui.append(self.back_button)
 

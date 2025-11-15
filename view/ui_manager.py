@@ -23,7 +23,10 @@ class UIManager:
     def handle_click(self, x, y):
         for element in self.ui:
             if element.is_hovered((x, y)):
-                element.click()
+                if element.data is not None:
+                    element.click_btn(element.data)
+                else:
+                    element.click()
 
     def on_click_cookie(self):
         self.event_manager.notify("click_cookie", None)

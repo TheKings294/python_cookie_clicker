@@ -43,6 +43,6 @@ class GameState:
         self._upgrades_list.append(upgrade)
 
     def is_good_healthy(self):
-        if not self._total_money_stat == 0 or not self._money == 0 and self._money_per_click == 1:
+        if not self._total_money_stat < 0 or not self._money < 0 and self._money_per_click == 1:
             return True
         return False

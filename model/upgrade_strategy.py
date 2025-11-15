@@ -14,8 +14,8 @@ class AutoClickStrategy(BaseUpgradeStrategy):
     def __init__(self, cps: float):
         self.cps = cps
 
-    def update(self, game_state, dt, level):
-        game_state.cookies += self.cps * level * dt
+    def update(self, game_state : GameState, dt, level):
+        game_state.add_money(game_state.get_money_per_click() * self.cps * level)
 
 
 class MultiplierStrategy(BaseUpgradeStrategy):

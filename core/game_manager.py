@@ -29,25 +29,28 @@ class GameManager:
     screen_manager = ScreenManager()
     clock = pygame.time.Clock()
     upgrades_available = [
-        Upgrade("Lubrifiant patriotique", 0, MultiplierStrategy(1.05)),
+        Upgrade("Lubrifiant patriotique", 20, MultiplierStrategy(1.05)),
         Upgrade("Chargeur XXL", 1, MultiplierStrategy(1.5)),
         Upgrade("Propagande TV", 2, MultiplierStrategy(2)),
         Upgrade("Soutien du congrès", 3, MultiplierStrategy(2.5)),
         Upgrade("Black Friday Sales", 0, MultiplierStrategy(3)),
-        Upgrade("Atelier garage", 0, AutoClickStrategy(0.3)),
-        Upgrade("Armurerie local", 1, AutoClickStrategy(0.6)),
-        Upgrade("Usine d'armes", 2, AutoClickStrategy(1)),
-        Upgrade("Lobby politique ", 3, AutoClickStrategy(1.7)),
-        Upgrade("Milices locales", 0, AutoClickStrategy(2)),
+        Upgrade("Atelier garage", 20, AutoClickStrategy(0.3)),
+        Upgrade("Armurerie local", 100, AutoClickStrategy(0.6)),
+        Upgrade("Usine d'armes", 1000, AutoClickStrategy(1)),
+        Upgrade("Lobby politique ", 10000, AutoClickStrategy(1.7)),
+        Upgrade("Milices locales", 100000, AutoClickStrategy(2)),
     ]
 
     screen = {}
+
+    last_time = 0
 
     def __init__(self):
         self._instance = self
         self.input_manager = InputManager(EventHandler(self._instance))
         self.event_manager.subscribe("click_cookie", self.on_cookie_clicked)
         self.event_manager.subscribe("new_game", self.new_game)
+        self.event_manager.subscribe("upgrade", self.on_upgrade_clicked)
 
     def start(self):
         print("Starting game...")
@@ -66,6 +69,8 @@ class GameManager:
     def game_loop(self):
         while self.running:
             dt = self.clock.tick(60) / 1000
+
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -107,4 +112,18 @@ class GameManager:
 
     def on_cookie_clicked(self, data):
         self.game_state.add_money(self.game_state.get_money_per_click())
-        self.event_manager.notify("cookie_updated", "Cookie :" + str(self.game_state.get_money()))
+        self.event_manager.notify("cookie_updated", "Cookie :" + str(str(round(self.game_state.get_money()))))
+
+    def on_upgrade_clicked(self, data):
+        self.game_state.add_to_upgrades_list(data)
+        data.level = data.level + 1
+        data.buy(self.game_state)
+
+    def lunch_upgrade(self, dt):
+        curent_time = pygame.time.get_ticks()
+
+        if curent_time - self.last_time >= 1000:
+            for u in self.game_state.get_upgrades_list():
+                u.update(self.game_state, dt, self.event_manager)
+
+            self.last_time = curent_time

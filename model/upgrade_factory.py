@@ -5,10 +5,10 @@ from model.upgrade import Upgrade
 class UpgradeFactory:
     @staticmethod
     def create_strategy(data : dict):
-        t = data.get("strategy")
+        t = data["strategy"]
 
         if t == "autoclick":
-            return AutoClickStrategy(cps=data.get("cps", 0))
+            return AutoClickStrategy(cps=data.get("value", 0))
 
         if t == "multiplier":
             return MultiplierStrategy(multiplier=data.get("value", 0))

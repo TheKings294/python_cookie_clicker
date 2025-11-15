@@ -20,7 +20,6 @@ class SaveManager():
         }
 
         if len(save.get_upgrades_list()) > 0:
-            print(save.get_upgrades_list())
             upgrade_data = upgrades_list_to_json(save.get_upgrades_list())
             with open(self._save_path + "/upgrades.json", "w") as file:
                 json.dump(upgrade_data, file)

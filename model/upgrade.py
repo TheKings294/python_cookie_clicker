@@ -1,3 +1,4 @@
+from core.event_manager import EventManager
 from model.game_state import GameState
 
 
@@ -6,7 +7,7 @@ class Upgrade:
         self.name = name
         self.cost = cost
         self.strategy = strategy
-        self.level = 0
+        self.level = 1
 
     def can_buy(self, game_state: GameState):
         return game_state.get_money() >= self.cost
@@ -18,9 +19,10 @@ class Upgrade:
         game_state.subtract_money(self.cost)
         self.level += 1
 
-        # Apply the strategy effect
         self.strategy.apply(game_state, self.level)
         return True
 
-    def update(self, game_state, dt):
+    def update(self, game_state, dt, event_manager : EventManager):
         self.strategy.update(game_state, dt, self.level)
+        event_manager.notify("cookie_updated", "Cookie :" + str(round(game_state.get_money())))
+        return True

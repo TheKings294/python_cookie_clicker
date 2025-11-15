@@ -5,7 +5,7 @@ from pygame import Surface
 
 class CookieComponent(UiComponents):
     def __init__(self, x, y, h, w, call_back, cookies):
-        super().__init__(x, y, h, w, call_back)
+        super().__init__(x, y, h, w, call_back, None)
         self.cookies = cookies
         self.font = pygame.font.Font("./assets/arial.ttf", 20)
         self.text : Surface = self.font.render(f"Cookie: {self.cookies}", True, (255, 255, 255))

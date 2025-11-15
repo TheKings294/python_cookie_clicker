@@ -1,4 +1,5 @@
 import sys
+import os
 
 import pygame
 
@@ -94,11 +95,15 @@ class GameManager:
         self.save_manager.save(self.game_state)
 
     def load_game(self):
+        if (not os.path.isdir("./data") or
+                not os.path.isfile("./data" + "/savegame.json") or
+                not os.path.isfile("./data" + "/upgrades.json")):
+            self.new_game()
         self.game_state = self.save_manager.load()
         if not self.game_state.is_good_healthy():
             raise Exception("Error during loading save")
 
-    def new_game(self, data):
+    def new_game(self):
         self.save_manager.create_file_and_dir()
         self.game_state = GameState()
         self.save_game()

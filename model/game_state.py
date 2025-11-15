@@ -3,6 +3,7 @@ class GameState:
     _money_per_click: int = 1
     _total_money_stat: int = 0
     _upgrades_list: list = []
+    tab_upgrades = dict()
 
     def get_money(self):
         return self._money

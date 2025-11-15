@@ -7,7 +7,7 @@ from view.button_components import Button
 class MenuScreen(BaseScreen):
     def __init__(self, game_manager, event_manager, screen_manager, game_state):
         super().__init__(game_manager, event_manager, screen_manager, game_state)
-        self.event_manager : EventManager = event_manager
+        self.event_manager: EventManager = event_manager
         self.screen_manager = screen_manager
         self.game_state = game_state
 
@@ -37,6 +37,7 @@ class MenuScreen(BaseScreen):
     def play(self):
         self.game_manager.load_game()
         self.screen_manager.set_screen("game")
+
     def new_game(self): self.event_manager.notify('new_game', None)
 
     def credits(self): self.screen_manager.set_screen("credits")

@@ -6,7 +6,7 @@ class Button(UiComponents):
                  bg_color=(70, 130, 180), hover_color=(100, 160, 210), text_color=(255,255,255)):
         super().__init__(x, y, h, w, call_back, data_click)
         self.text = text
-        self.font = font or pygame.font.Font('assets/arial.ttf', 15)
+        self.font = font or pygame.font.Font('assets/arial.ttf', 13)
         self.bg_color = bg_color
         self.hover_color = hover_color
         self.text_color = text_color
@@ -32,4 +32,7 @@ class Button(UiComponents):
                 self.click()
 
     def click_btn(self, data):
-        self.call_back(data)
+        self.call_back(data, self)
+
+    def change_text(self, text):
+        self.text = text

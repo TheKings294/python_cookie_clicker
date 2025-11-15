@@ -31,15 +31,15 @@ class GameManager:
     clock = pygame.time.Clock()
     upgrades_available = [
         Upgrade("Lubrifiant patriotique", 20, MultiplierStrategy(1.05)),
-        Upgrade("Chargeur XXL", 1, MultiplierStrategy(1.5)),
-        Upgrade("Propagande TV", 2, MultiplierStrategy(2)),
-        Upgrade("Soutien du congrès", 3, MultiplierStrategy(2.5)),
-        Upgrade("Black Friday Sales", 0, MultiplierStrategy(3)),
-        Upgrade("Atelier garage", 20, AutoClickStrategy(0.3)),
-        Upgrade("Armurerie local", 100, AutoClickStrategy(0.6)),
-        Upgrade("Usine d'armes", 1000, AutoClickStrategy(1)),
-        Upgrade("Lobby politique ", 10000, AutoClickStrategy(1.7)),
-        Upgrade("Milices locales", 100000, AutoClickStrategy(2)),
+        Upgrade("Chargeur XXL", 200, MultiplierStrategy(1.5)),
+        Upgrade("Propagande TV", 1000, MultiplierStrategy(2)),
+        Upgrade("Soutien du congrès", 10000, MultiplierStrategy(2.5)),
+        Upgrade("Black Friday Sales", 100000, MultiplierStrategy(3)),
+        Upgrade("Atelier garage", 200, AutoClickStrategy(0.3)),
+        Upgrade("Armurerie local", 1000, AutoClickStrategy(0.6)),
+        Upgrade("Usine d'armes", 10000, AutoClickStrategy(1)),
+        Upgrade("Lobby politique ", 100000, AutoClickStrategy(1.7)),
+        Upgrade("Milices locales", 1000000, AutoClickStrategy(2)),
     ]
 
     screen = {}
@@ -100,6 +100,7 @@ class GameManager:
                 not os.path.isfile("./data" + "/upgrades.json")):
             self.new_game()
         self.game_state = self.save_manager.load()
+        self.set_upgrades_levels()
         if not self.game_state.is_good_healthy():
             raise Exception("Error during loading save")
 
@@ -117,11 +118,10 @@ class GameManager:
 
     def on_cookie_clicked(self, data):
         self.game_state.add_money(self.game_state.get_money_per_click())
-        self.event_manager.notify("cookie_updated", "Cookie :" + str(str(round(self.game_state.get_money()))))
+        self.event_manager.notify("cookie_updated", "Armes :" + str(str(round(self.game_state.get_money()))))
 
     def on_upgrade_clicked(self, data):
         self.game_state.add_to_upgrades_list(data)
-        data.level = data.level + 1
         data.buy(self.game_state)
 
     def lunch_upgrade(self, dt):
@@ -132,3 +132,12 @@ class GameManager:
                 u.update(self.game_state, dt, self.event_manager)
 
             self.last_time = curent_time
+
+    def set_upgrades_levels(self):
+        for upgrade in self.upgrades_available:
+            if upgrade.name in self.game_state.tab_upgrades:
+                upgrade.set_level(self.game_state.tab_upgrades[upgrade.name])
+                print(upgrade.level)
+
+        self.event_manager.notify("update_btn", self.game_state.tab_upgrades)
+

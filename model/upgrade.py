@@ -18,11 +18,15 @@ class Upgrade:
 
         game_state.subtract_money(self.cost)
         self.level += 1
+        self.cost = self.cost * 1.20
 
         self.strategy.apply(game_state, self.level)
         return True
 
     def update(self, game_state, dt, event_manager : EventManager):
         self.strategy.update(game_state, dt, self.level)
-        event_manager.notify("cookie_updated", "Cookie :" + str(round(game_state.get_money())))
+        event_manager.notify("cookie_updated", "Armes :" + str(round(game_state.get_money())))
         return True
+
+    def set_level(self, level):
+        self.level = level

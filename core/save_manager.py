@@ -47,9 +47,15 @@ class SaveManager():
         game_state.add_money(data_s["money"])
         game_state.set_total_money_stat(data_s["total_money"])
         game_state.set_money_per_click(data_s["money_per_click"])
+        tab = {}
         for u in upgrades_json_to_list(data_u):
-            game_state.add_to_upgrades_list(u)
+            if u.name in tab :
+                tab[u.name] += 1
+            else :
+                tab[u.name] = 1
 
+            game_state.add_to_upgrades_list(u)
+        game_state.tab_upgrades = tab
         return game_state
 
     def create_file_and_dir(self):

@@ -8,7 +8,7 @@ class CookieComponent(UiComponents):
         super().__init__(x, y, h, w, call_back, None)
         self.cookies = cookies
         self.font = pygame.font.Font("./assets/arial.ttf", 20)
-        self.text : Surface = self.font.render(f"Cookie: {self.cookies}", True, (255, 255, 255))
+        self.text : Surface = self.font.render(f"Armes : {self.cookies}", True, (255, 255, 255))
 
     def draw(self, screen):
         pygame.draw.rect(screen, (255, 0, 0), self.rect)

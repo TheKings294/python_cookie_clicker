@@ -12,7 +12,6 @@ class UIManager:
         self.ui: list[UiComponents] = []
         self.game_state = game_state
 
-        # Font
         self.font = pygame.font.Font("./assets/arial.ttf", 25)
 
 
@@ -30,3 +29,4 @@ class UIManager:
 
     def on_click_cookie(self):
         self.event_manager.notify("click_cookie", None)
+
